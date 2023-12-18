@@ -242,7 +242,7 @@ LoadNAMLoop:
 		CPY $19 ; compare against length byte
 		BCC LoadNAMLoop ; loop until Y >= length
 
-		JSR ReadByte ; read checksum compliment
+		JSR ReadByte ; read checksum complement
 		CLC
 		ADC $10 ; final checksum
 		BEQ ProcessDevice ; return to processing if result is 0
@@ -264,7 +264,7 @@ LoadPRGLoop:
 		CPY $19 ; compare against length byte
 		BCC LoadPRGLoop ; loop until Y >= length
 
-		JSR ReadByte ; read checksum compliment
+		JSR ReadByte ; read checksum complement
 		CLC
 		ADC $10 ; final checksum
 		BEQ ProcessDevice ; return to processing if result is 0

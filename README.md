@@ -82,7 +82,7 @@ This means the order of the bits in the polling result is `76543210`.
 The data transfer process is identical between PPU nametables & PRG-RAM aside from the storage method:
 1. Set destination address - PPU nametables: ($12)+$2000 used for PPUADDR, PRG-RAM: ($12)
 1. Load ASCII-encoded bytes and store them at the destination until the offset matches the length, updating the checksum in the process
-1. Read 1 ASCII-encoded byte to get the checksum compliment and add it to the checksum
+1. Read 1 ASCII-encoded byte to get the checksum complement and add it to the checksum
 1. If the checksum == 0, return to processing
 1. Otherwise, display an error screen which sets the BG to `$15` and continually increments $4011 (crude sawtooth)
 
@@ -94,7 +94,7 @@ The data transfer process expects a "packet" format described as the following:
 1. ASCII-encoded destination high byte & ASCII destination low byte
 1. ASCII-encoded $00 byte
 1. ASCII-encoded data
-1. ASCII-encoded checksum compliment
+1. ASCII-encoded checksum complement
 
 An example "packet" expressed as a list of ASCII strings:
 `":", "02", "6942", "00", "BEEF", "A6"`
