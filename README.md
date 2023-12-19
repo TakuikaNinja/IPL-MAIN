@@ -88,11 +88,11 @@ The data transfer process is identical between PPU nametables & PRG-RAM aside fr
 
 ## Data Transfer Format
 
-The data transfer process expects a "packet" format described as the following:
-1. Raw $3A byte (":")
+The data transfer process expects a variant of the [Intel HEX](https://en.wikipedia.org/wiki/Intel_HEX) format described as the following:
+1. Start code, raw $3A byte (":")
 1. ASCII-encoded length
 1. ASCII-encoded destination high byte & ASCII destination low byte
-1. ASCII-encoded $00 byte
+1. ASCII-encoded record type (must be $00, data type)
 1. ASCII-encoded data
 1. ASCII-encoded checksum complement
 
@@ -101,6 +101,8 @@ An example "packet" expressed as a list of ASCII strings:
 
 An example of the final packet (length = 0, 10 bytes padding):
 `":", "00", "0000", "00", "00", "00"`
+
+This termination method (as opposed to using the $01 record type for EOF) is used by most [CP/M-80](https://en.wikipedia.org/wiki/CP/M-80) assemblers.
 
 ### Notes
 
