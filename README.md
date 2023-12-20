@@ -102,8 +102,6 @@ An example record expressed as a list of ASCII strings:
 An example of the final record (length = 0, traditional EOF + 1 byte):
 `":", "00", "0000", "01", "FF", "00"`
 
-This termination method (as opposed to using the $01 record type for EOF) is used by most [CP/M-80](https://en.wikipedia.org/wiki/CP/M-80) assemblers.
-
 ### Notes
 
 - ASCII-encoded bytes are stored using ASCII strings of hexadecimal values. (e.g. $5F -> "5", "F" -> $35, $46)
