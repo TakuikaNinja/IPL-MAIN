@@ -96,11 +96,11 @@ The data transfer process expects a variant of the [Intel HEX](https://en.wikipe
 1. ASCII-encoded data
 1. ASCII-encoded checksum complement
 
-An example "packet" expressed as a list of ASCII strings:
+An example record expressed as a list of ASCII strings:
 `":", "02", "6942", "00", "BEEF", "A6"`
 
-An example of the final packet (length = 0, 10 bytes padding):
-`":", "00", "0000", "00", "00", "00"`
+An example of the final record (length = 0, traditional EOF + 1 byte):
+`":", "00", "0000", "01", "FF", "00"`
 
 This termination method (as opposed to using the $01 record type for EOF) is used by most [CP/M-80](https://en.wikipedia.org/wiki/CP/M-80) assemblers.
 
