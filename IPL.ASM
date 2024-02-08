@@ -195,6 +195,7 @@ TimedLoop2:
 		RTS
 
 ; read unknown expansion port device and process data
+; the data format is Intel HEX
 ProcessDevice:
 		JSR PollDevice
 		CMP #$3A
@@ -216,9 +217,9 @@ ProcessDevice:
 		CLC
 		ADC $10
 		STA $10 ; checksum
-		JSR ReadByte ; this appears to be a separator byte before the data
-		CMP #$00
-		BNE NonZeroSeparator ; branch to error screen if not 0
+		JSR ReadByte ; record type
+		CMP #$00 ; enforce data type
+		BNE NotDataType ; branch to error screen if not 0
 
 		LDA $13 ; note that the carry is set here
 		ADC #$1F ; d7 is set if [$13] >= $60 (i.e. destination >= $6000)
@@ -322,8 +323,8 @@ Sawtooth:
 		JMP Sawtooth  ; jump back to increment $4011 forever
 
 ; disable NMIs & rendering, then fill palettes with $15 and loop forever
-; an error screen called only when the separator byte between the length/destination and data is nonzero
-NonZeroSeparator:
+; an error screen called only when the record type is not the data type
+NotDataType:
 		LDA #$00
 		STA PPU_CTRL
 		STA PPU_MASK
@@ -613,7 +614,7 @@ Bypass:
 		TXS
 
 ; check for presence of an unknown expansion port device
-; based on the interfacing, it appears to be an EEPROM device similar to the Battle Box
+; it appears to use an RS232-style serial interface
 		LDX #$01
 		LDY #$00
 		STX JOY1 ; $4016 = 1
