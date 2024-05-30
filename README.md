@@ -102,14 +102,37 @@ An example record expressed as a list of ASCII strings:
 An example of the final record (length = 0, traditional EOF + 1 byte):
 `":", "00", "0000", "01", "FF", "00"`
 
+## IPL Status Indicators
+
+The IPL sets the screen colour by filling palette RAM in order to indicate its status. The tables below list the known colours and their respective statuses.
+
+### IPL Data Transfer
+
+| Colour (raw value) | Sound? | Status |
+| ------------------ | ------ | ------ |
+| Blue ($11) | Y | Transferring interface data |
+| Black ($0F) | N | Transfer complete |
+| Magenta ($15) | Y | Incorrect record checksum |
+| Magenta ($15) | N | Record type != data type |
+
+### Disk Writes
+
+| Colour (raw value) | Sound? | Status |
+| ------------------ | ------ | ------ |
+| Magenta ($15) | N | Writing to disk |
+| Brown ($17) | N | Disk readback check |
+| Black ($0F) | N | Readback success |
+| Magenta ($15) | Y | Disk Write/Readback failure |
+
 ### Notes
 
 - ASCII-encoded bytes are stored using ASCII strings of hexadecimal values. (e.g. $5F -> "5", "F" -> $35, $46)
 - The checksum addition is performed with the carry always cleared, starting from the length value.
+- The safest point to eject/swap disks would be during the interface data transfer (blue screen), as the interface could stall the transfer before a record is sent.
 
 # To-Do List
 
-- [ ] Document the screen colours which indicate the program status.
+- [x] Document the screen colours which indicate the program status.
 - [ ] Attempt to emulate the interface. (software/hardware)
 - [ ] Run the program on real hardware.
 
