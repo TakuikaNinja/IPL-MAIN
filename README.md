@@ -21,6 +21,7 @@ The device will be named the _Namco IPL Interface_ for the time being.
 
 - This README file containing general information about the IPL.MAIN program and its interface.
 - IPL.ASM, which is a disassembly of the IPL.MAIN program. It targets [asm6f](https://github.com/freem/asm6f) and can be reassembled to an identical binary file.
+- IPL.lua, which is a Lua script for [Mesen2](https://www.mesen.ca/) which simulates the interface.
 - .gitignore, just so no one accidentally pushes binary files to the repository.
 
 # Links
@@ -133,6 +134,7 @@ The IPL sets the screen colour by filling palette RAM in order to indicate its s
 # To-Do List
 
 - [x] Document the screen colours which indicate the program status.
-- [ ] Attempt to emulate the interface. (software/hardware)
+- [x] Simulate the interface hardware using a Lua script.
+- [ ] Replicate the interface hardware.
 - [ ] Run the program on real hardware.
 
