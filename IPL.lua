@@ -31,6 +31,7 @@ function dump(o)
 end
 
 function PrepareIPL()
+	ReadPayloadFile()
 	local state = emu.getState()
 	state["cpu.a"] = 0x08 -- pretend the IPL interface was detected
 	emu.setState(state)
@@ -96,7 +97,26 @@ script = "IPL.LUA"
 
 -- Intel HEX payload
 idx = 1
-hexPayload = ":02694200BEEFA6:00000001FF" -- TODO: read from a file instead
+hexPayload = ":02694200BEEFA6:00000001FF" -- default for when I/O fails
+
+-- Attempt to read payload from "LuaScriptData/IPL/payload.hex"
+function ReadPayloadFile()
+	local readSuccess = false
+	local dir = emu.getScriptDataFolder()
+	if dir ~= nil then
+		local file = io.open(dir .. "/payload.hex", "rb")
+		if file ~= nil then
+			emu.displayMessage(script, "Reading payload...")
+			hexPayload = file:read("*all")
+			file:close()
+			readSuccess = true
+		end
+	end
+	if readSuccess == false then
+		emu.displayMessage(script, "Using default payload...")
+	end
+	emu.log('"' .. hexPayload .. '"')
+end
 
 -- Memory callbacks
 

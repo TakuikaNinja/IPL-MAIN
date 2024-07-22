@@ -22,6 +22,7 @@ The device will be named the _Namco IPL Interface_ for the time being.
 - This README file containing general information about the IPL.MAIN program and its interface.
 - IPL.ASM, which is a disassembly of the IPL.MAIN program. It targets [asm6f](https://github.com/freem/asm6f) and can be reassembled to an identical binary file.
 - IPL.lua, which is a Lua script for [Mesen2](https://www.mesen.ca/) which simulates the interface.
+- payload.hex, which is an example Intel HEX payload to be loaded by the Lua script. Place it inside "LuaScriptData/IPL" in Mesen2's home directory.
 - .gitignore, just so no one accidentally pushes binary files to the repository.
 
 # Links
