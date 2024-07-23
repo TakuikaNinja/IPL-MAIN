@@ -42,6 +42,7 @@ end
 
 function ProcessDevice()
 	emu.displayMessage(script, "Processing IPL interface...")
+	emu.displayMessage(script, "Frame rate may be slowed down.")
 end
 
 function PollDevice()
