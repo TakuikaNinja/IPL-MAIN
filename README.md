@@ -28,6 +28,7 @@ The device will be named the _Namco IPL Interface_ for the time being.
 # Links
 
 - https://github.com/TakuikaNinja/IPL-MAIN - This repository
+- https://github.com/TakuikaNinja/IPL-demo - Example program which targets the Namco IPL Interface
 - https://www.nesdev.org/wiki/Namco_IPL_Interface - Nesdev Wiki article for the Namco IPL Interface
 - https://forums.nesdev.org/viewtopic.php?t=24983 - Forum discussion
 
