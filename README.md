@@ -17,13 +17,76 @@ However, the program does more interesting things if the device happens to be pr
 
 The device will be named the _Namco IPL Interface_ for the time being.
 
+## Supported FDS Games
+
+Commercial games, in release order:
+- Pac-Man
+- Xevious
+- Galaga
+- Dig Dug
+- Galaxian
+- Dig Dug II
+
+Custom disks created using the IPL are also supported, since the IPL automatically includes itself when saving data to disks.
+
 # Included Files
 
-- This README file containing general information about the IPL.MAIN program and its interface.
-- IPL.ASM, which is a disassembly of the IPL.MAIN program. It targets [asm6f](https://github.com/freem/asm6f) and can be reassembled to an identical binary file.
-- IPL.lua, which is a Lua script for [Mesen2](https://www.mesen.ca/) which simulates the interface.
-- payload.hex, which is an example Intel HEX payload to be loaded by the Lua script. Place it inside "LuaScriptData/IPL" in Mesen2's home directory.
-- .gitignore, just so no one accidentally pushes binary files to the repository.
+- This `README` file containing general information about the IPL.MAIN program and its interface.
+- `IPL.ASM`, which is a disassembly of the IPL.MAIN program. It targets [asm6f](https://github.com/freem/asm6f) and can be reassembled to an identical binary file.
+- `IPL.lua`, which is a Lua script for [Mesen2](https://www.mesen.ca/) which simulates the interface.
+- `IPL-Arduino/IPL-Arduino.ino`, which is an Arduino sketch which simulates the interface.
+- `payload.hex`, which is an example Intel HEX payload to be loaded by the IPL. See usage section for details.
+- `.gitignore`, just so no one accidentally pushes binary files to the repository.
+
+# Usage
+
+## Emulator (Mesen2)
+
+Demonstration: https://youtu.be/cozQygiiEqQ
+
+1. Place the payload file in `LuaScriptData/IPL` in Mesen2's home directory.
+1. Load a supported FDS game, then open and run `IPL.lua`.
+1. Hard-reset the emulated FDS. The script will automatically pause the emulator upon detecting the IPL to allow the disk to be ejected or swapped before overwriting its contents. Pick an option and resume emulation to continue the process.
+1. The script will display status messages throughout the process. See status indicators below for how they correlate to the screen colours.
+
+## Hardware (Arduino)
+
+Demonstration: https://youtu.be/jX9ZZXXkR2c
+
+1. Wire the Famicom expansion port and Arduino as explained below.
+1. Compile and upload `IPL-Arduino/IPL-Arduino.ino` to an Arduino.
+1. Load a supported FDS game. The screen should show a solid blue upon loading. Eject or swap the disk at this point if desired.
+1. Use the serial monitor to upload the payload file contents as text. Line endings must be "Both NL & CR". The sketch targets 19200 baud on the USB side by default, alter this if there are speed/reliability issues.
+1. Consult the status screen indicators below to determine the IPL status.
+
+### Wiring
+
+Modified diagram from https://www.nesdev.org/wiki/Expansion_port
+```
+       (top)    Famicom    (bottom)
+               Male DA-15
+                 /\
+                |   \
+                | .   \
+                |   .  |
+joypad 2 /D1 -> | 07   |
+                |   .  |
+joypad 2 /D2 -> | 06   |
+                |   .  |
+joypad 2 /D3 -> | 05   |
+                |   12 | -> OUT0 ($4016 write data, bit 0, strobe on pads)
+joypad 2 /D4 -> | 04   |
+                |   .  |
+                | .    |
+                |   .  |
+                | .    |
+                |   .  |
+                | .   /
+                |   /
+                 \/
+```
+- joypad 2 /D1, /D2, D4: 5V TTL RX (serial input), connect one of them to Arduino digital pin 3 (SoftwareSerial TX)
+- joypad 2 /D3 and OUT0: short these pins to trigger the IPL
 
 # Links
 
@@ -137,6 +200,6 @@ The IPL sets the screen colour by filling palette RAM in order to indicate its s
 
 - [x] Document the screen colours which indicate the program status.
 - [x] Simulate the interface hardware using a Lua script.
-- [ ] Replicate the interface hardware.
-- [ ] Run the program on real hardware.
+- [x] Replicate the interface hardware.
+- [x] Run the program on real hardware.
 
