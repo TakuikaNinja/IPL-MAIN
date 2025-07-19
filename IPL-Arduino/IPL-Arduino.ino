@@ -22,7 +22,7 @@ void loop() {
 
   // relay to Namco IPL if length changed
   if (hexPayload.length() != 0) {
-    Serial.print(hexPayload);
+    //Serial.print(hexPayload);
     mySerial.print(hexPayload);
   }
 }
