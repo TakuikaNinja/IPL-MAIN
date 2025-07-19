@@ -85,7 +85,7 @@ joypad 2 /D4 -> | 04   |
                 |   /
                  \/
 ```
-- joypad 2 /D1, /D2, D4: 5V TTL RX (serial input), connect one of them to Arduino digital pin 3 (SoftwareSerial TX)
+- joypad 2 /D1, /D2, /D4: 5V TTL RX (serial input), connect one of them to Arduino digital pin 3 (SoftwareSerial TX)
 - joypad 2 /D3 and OUT0: short these pins to trigger the IPL
 
 # Links
