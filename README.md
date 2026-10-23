@@ -165,8 +165,8 @@ The data transfer process expects a variant of the [Intel HEX](https://en.wikipe
 An example record expressed as a list of ASCII strings:
 `":", "02", "6942", "00", "BEEF", "A6"`
 
-An example of the final record (length = 0, traditional EOF + 1 byte):
-`":", "00", "0000", "01", "FF", "00"`
+An example of the final record (length = 0, traditional EOF + CRLF line ending):
+`":", "00", "0000", "01", "FF", "\r\n"`
 
 ## IPL Status Indicators
 
