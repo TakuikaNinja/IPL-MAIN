@@ -13,16 +13,9 @@ void setup() {
 }
 
 void loop() {
-  // read Intel HEX payload from PC
-  String hexPayload = "";
-  while (Serial.available() > 0) {
+  // relay Intel HEX payload from PC to Namco IPL
+  if (Serial.available()) {
     char inChar = Serial.read();
-    hexPayload += inChar;
-  }
-
-  // relay to Namco IPL if length changed
-  if (hexPayload.length() != 0) {
-    //Serial.print(hexPayload);
-    mySerial.print(hexPayload);
+    mySerial.print(inChar);
   }
 }
